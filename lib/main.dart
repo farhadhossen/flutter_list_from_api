@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list_from_api/model/userlist_model.dart';
+import 'package:flutter_list_from_api/respons/userlist_respons.dart';
+
 
 import 'package:http/http.dart' as http;
-import 'package:flutter_list_from_api/model/userlist_model.dart';
+import 'package:flutter_list_from_api/respons/userlist_respons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,15 +38,22 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  Future<List<UserlistModel>> getUsers() async {
-    var apiUrl = Uri.parse('http://172.16.153.3:8000/api/v1/user/search');
+ // ResponseRepository repository = ResponseRepository();
 
-    final response = await http.get(apiUrl);
 
-    print(response.statusCode);
 
-    return userlistModelFromJson(response.body);
-  }
+  // Future<List<UserlistModel>> getUsers() async {
+  //   var apiUrl = Uri.parse('http://172.16.153.3:8000/api/v1/user/search');
+  //
+  //   final response = await http.get(apiUrl);
+  //
+  //   print(response.statusCode);
+  //
+  //   return userlistModelFromJson(response.body);
+  // }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: FutureBuilder<List<UserlistModel>>(
-        future: getUsers(),
+        future: ResponseRepository().getUsers(),
         builder: (context, snapshot){
           if(snapshot.hasData){
             return Container(
